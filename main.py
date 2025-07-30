@@ -7,6 +7,17 @@ def add(numbers):
     
     # bypassing any kind of delimeter
     
+    
+    # Check for custom delimiter
+    if numbers.startswith("//"):
+        parts = numbers.split("\n", 1)
+        delimiter = parts[0][2:]  # Remove leading "//"
+        numbers = parts[1]
+        numbers = numbers.replace(delimiter, ",")
+        print(numbers) 
+
+    
+    
     temp = 0
     current = ""
 
@@ -22,7 +33,6 @@ def add(numbers):
     if current:
         temp += int(current)
 
-    # print("mynumber =", mynumber)
     return temp
 
 
@@ -82,12 +92,16 @@ def main():
     #         if result != expected:
     #             print("There is still a problem in the program")
     
-            result = add("1&666&2&666&3")
+            result = add("//&666&\n1&666&2&666&3")
+            # result = add(     "//1\n11213")
+       
             
+            # just remove the delimiter initially by replacing delimiter with ,
             print(result)
     
 
 
 main()
+
 
 
