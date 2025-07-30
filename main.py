@@ -2,13 +2,11 @@ import re
 
 def add(numbers):
     
-    # We do not need this if statement
-    # because the loop will never run of there is empty string.
-    # if not numbers:
-    #     return 0
+    # For sake of simplicity.   
+    if not numbers:
+        return 0
     
-    # bypassing any kind of delimeter
-    
+  
     
     # Check for custom delimiter
     if numbers.startswith("//"):
@@ -111,6 +109,7 @@ def main():
 
 
 main()
+
 
 
 
