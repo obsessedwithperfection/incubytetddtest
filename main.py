@@ -14,15 +14,21 @@ def add(numbers):
         delimiter = parts[0][2:]  # Remove leading "//"
         numbers = parts[1]
         numbers = numbers.replace(delimiter, ",")
-        print(numbers) 
+        # Support delimiters like "//;\n1;2"
 
     
+    # print(s)  # Output: 1,2,3
     
     temp = 0
     current = ""
 
-    for char in numbers:
+    for index, char in enumerate(numbers):
+        
+        
         if char.isdigit():
+            if(numbers[index-1] == "-"):
+                # Found a negative number. Therefore stopping the program"
+                raise ValueError("Negative numbers not allowed")
             current += char  # build number from consecutive digits
         else:
             if current:
@@ -60,30 +66,30 @@ def add(numbers):
 #         result = add(numbers)
 #         print(result)
 
-test_cases = {
-    "1,2,3": 6,
-    "1;2;3": 6,
-    "1|2|3": 6,
-    "1\n2\n3": 6,
-    "1 2 3": 6,
-    "1-2-3": 6,  # Will fail if negative numbers are not handled correctly
-    "1:2:3": 6,
-    "1/2/3": 6,
-    "1#2#3": 6,
-    "1a2b3c4": 10,
-    "1@2@3": 6,
-    "100&200&300": 600,
-    "9*8*7": 24,
+# test_cases = {
+#     "1,2,3": 6,
+#     "1;2;3": 6,
+#     "1|2|3": 6,
+#     "1\n2\n3": 6,
+#     "1 2 3": 6,
+#     "1-2-3": 6,  # Will fail if negative numbers are not handled correctly
+#     "1:2:3": 6,
+#     "1/2/3": 6,
+#     "1#2#3": 6,
+#     "1a2b3c4": 10,
+#     "1@2@3": 6,
+#     "100&200&300": 600,
+#     "9*8*7": 24,
 
-    # Edge / invalid / tricky cases
-    # "1--2--3": "may fail due to negative number parsing",
-    # "-1,-2,3": "should raise error or handle negatives",
-    # "3.14,2.71": "will be treated as [3, 14, 2, 71] → sum = 90",
-    # "1,002,3": 6,  # Parsed as 1, 2, 3
-    # "": 0,
-    # "abc": 0,
-    # "1,,2": 3,  # Should still parse 1 and 2
-}
+#     # Edge / invalid / tricky cases
+#     # "1--2--3": "may fail due to negative number parsing",
+#     # "-1,-2,3": "should raise error or handle negatives",
+#     # "3.14,2.71": "will be treated as [3, 14, 2, 71] → sum = 90",
+#     # "1,002,3": 6,  # Parsed as 1, 2, 3
+#     # "": 0,
+#     # "abc": 0,
+#     # "1,,2": 3,  # Should still parse 1 and 2
+# }
 
 
 def main():
@@ -92,7 +98,7 @@ def main():
     #         if result != expected:
     #             print("There is still a problem in the program")
     
-            result = add("//&666&\n1&666&2&666&3")
+            result = add("//&666&\n1&666&2&666&-3")
             # result = add(     "//1\n11213")
        
             
@@ -102,6 +108,7 @@ def main():
 
 
 main()
+
 
 
 
