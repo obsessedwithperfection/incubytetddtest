@@ -1,3 +1,5 @@
+import re
+
 def add(numbers):
     
     # We do not need this if statement
@@ -12,8 +14,20 @@ def add(numbers):
     if numbers.startswith("//"):
         parts = numbers.split("\n", 1)
         delimiter = parts[0][2:]  # Remove leading "//"
+        
         numbers = parts[1]
-        numbers = numbers.replace(delimiter, ",")
+        
+        # Here it provides the ability to have multiple delimiters
+        # in this form “//[delim1][delim2]\n”.
+        if delimiter.startswith("["):
+            delimiters = re.findall(r'\[(.*?)\]', numbers)
+            for delim in delimiters:
+                numbers = numbers.replace(delim, ",")
+        else:
+            numbers = numbers.replace(delimiter, ",")
+                
+                
+        print(numbers)
         # Support delimiters like "//;\n1;2"
 
     
@@ -85,17 +99,19 @@ def main():
     #             print("There is still a problem in the program")
     
             # result = add("//&666&\n1&666&2&666&3")
+            # result = add("//[;[{}]'/.][*]\n1;[{}]'/.2*3")
+            result = add("//[;[{}]'/.][*]\n1;[{}]'/.2*32")
             # result = add(     "//1\n11213")
             # result = add("1,1002,3")
-            result = add("2,1001")
+            # result = add("2,1001")
        
-            
             # just remove the delimiter initially by replacing delimiter with ,
             print(result)
     
 
 
 main()
+
 
 
 
