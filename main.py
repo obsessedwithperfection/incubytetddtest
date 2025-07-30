@@ -1,11 +1,14 @@
 def add(numbers):
     
+    # We do not need this if statement
+    # because the loop will never run of there is empty string.
+    # if not numbers:
+    #     return 0
+    
     
     
     temp = 0
-    # I am adding this extra mynumbers to show how this program just retreive numbers
-    # out of string without caring any kind of delimiter.
-    mynumbers = []
+    mynumber = []
     current = ""
 
     for char in numbers:
@@ -13,16 +16,16 @@ def add(numbers):
             current += char  # build number from consecutive digits
         else:
             if current:
-                mynumbers.append(int(current))
+                mynumber.append(int(current))
                 temp += int(current)
                 current = ""
 
     # Add the last number (if the string ends with a digit)
     if current:
-        mynumbers.append(int(current))
+        mynumber.append(int(current))
         temp += int(current)
 
-    print("mynumber =", mynumbers)
+    # print("mynumber =", mynumber)
     return temp
 
 
@@ -84,3 +87,4 @@ def main():
 
 
 main()
+
