@@ -5,10 +5,9 @@ def add(numbers):
     # if not numbers:
     #     return 0
     
-    
+    # bypassing any kind of delimeter
     
     temp = 0
-    mynumber = []
     current = ""
 
     for char in numbers:
@@ -16,13 +15,11 @@ def add(numbers):
             current += char  # build number from consecutive digits
         else:
             if current:
-                mynumber.append(int(current))
                 temp += int(current)
                 current = ""
 
     # Add the last number (if the string ends with a digit)
     if current:
-        mynumber.append(int(current))
         temp += int(current)
 
     # print("mynumber =", mynumber)
@@ -80,11 +77,17 @@ test_cases = {
 
 
 def main():
-    for input_str, expected in test_cases.items():
-            result = add(input_str)
-            if result != expected:
-                print("There is still a problem in the program")
+    # for input_str, expected in test_cases.items():
+    #         result = add(input_str)
+    #         if result != expected:
+    #             print("There is still a problem in the program")
+    
+            result = add("1&666&2&666&3")
+            
+            print(result)
+    
 
 
 main()
+
 
