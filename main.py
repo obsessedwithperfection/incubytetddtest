@@ -1,20 +1,20 @@
 def add(numbers):
-    
-    
     temp = 0
-    # This method will completely ignore the need to check the delimiter.
-    # It would be better to iterate over each character to see if
-    # it is an int or string. If it is then just convert it into
-    # an int and just add it up. 
+    current = ""
+
     for char in numbers:
         if char.isdigit():
-            newnumber = int(char)
-            temp = temp + newnumber
-            
+            current += char  # build number from consecutive digits
+        else:
+            if current:
+                temp += int(current)
+                current = ""
+
+    # Add the last number (if the string ends with a digit)
+    if current:
+        temp += int(current)
+
     return temp
-            
 
-
-result =  add("1,2,3")
-
+result = add("1,22,3")
 print(result)
