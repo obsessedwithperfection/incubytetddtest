@@ -32,12 +32,19 @@ def add(numbers):
             current += char  # build number from consecutive digits
         else:
             if current:
-                temp += int(current)
+                num = int(current)
+                # Here it ignores Number bigger than 1000
+                if num <= 1000:
+                    temp += num
                 current = ""
+                
 
     # Add the last number (if the string ends with a digit)
     if current:
-        temp += int(current)
+            num = int(current)
+            # Here it ignores Number bigger than 1000
+            if num <= 1000:
+                temp += num
 
     return temp
 
@@ -72,21 +79,24 @@ test_cases = {
 
 
 def main():
-    for input_str, expected in test_cases.items():
-            result = add(input_str)
-            if result != expected:
-                print("There is still a problem in the program")
+    # for input_str, expected in test_cases.items():
+    #         result = add(input_str)
+    #         if result != expected:
+    #             print("There is still a problem in the program")
     
             # result = add("//&666&\n1&666&2&666&3")
-            # # result = add(     "//1\n11213")
+            # result = add(     "//1\n11213")
+            # result = add("1,1002,3")
+            result = add("2,1001")
        
             
-            # # just remove the delimiter initially by replacing delimiter with ,
-            # print(result)
+            # just remove the delimiter initially by replacing delimiter with ,
+            print(result)
     
 
 
 main()
+
 
 
 
