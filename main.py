@@ -1,14 +1,18 @@
 import re
 
-def add(numbers):
-    
-    # For sake of simplicity.   
-    if not numbers:
-        return 0
-    
-  
-    
-    # Check for custom delimiter
+# python --version
+# python 3.6.9
+
+# Here it ignores Number bigger than 1000
+def ignore(current , temp):
+    num = int(current)
+    if num <= 1000:
+        temp += num
+    return temp
+
+
+def preProcessNumbers(numbers):
+      # Check for custom delimiter
     if numbers.startswith("//"):
         parts = numbers.split("\n", 1)
         delimiter = parts[0][2:]  # Remove leading "//"
@@ -25,44 +29,50 @@ def add(numbers):
             numbers = numbers.replace(delimiter, ",")
                 
                 
-        print(numbers)
-        # Support delimiters like "//;\n1;2"
-
+    # Adding 0 at last so that a loop could cover even the last calculated
+    # number
+    numbers =  numbers + ",0"
+                
+    # print(numbers)
+    return numbers
     
-    # print(s)  # Output: 1,2,3
+def checkForNegative(char):
+    if(char == "-"):
+        # Found a negative number. Therefore stopping the program"
+        raise ValueError("Negative numbers not allowed")
+
+def add(numbers):
+    
+    # For sake of simplicity.   
+    if not numbers:
+        return 0
+    
+    numbers = preProcessNumbers(numbers)
     
     temp = 0
     current = ""
 
     for index, char in enumerate(numbers):
         
-        
         if char.isdigit():
-            if(numbers[index-1] == "-"):
-                # Found a negative number. Therefore stopping the program"
-                raise ValueError("Negative numbers not allowed")
+            checkForNegative(numbers[index-1])
             current += char  # build number from consecutive digits
         else:
             if current:
-                num = int(current)
-                # Here it ignores Number bigger than 1000
-                if num <= 1000:
-                    temp += num
+                temp = ignore(current, temp)
                 current = ""
                 
-
-    # Add the last number (if the string ends with a digit)
-    if current:
-            num = int(current)
-            # Here it ignores Number bigger than 1000
-            if num <= 1000:
-                temp += num
 
     return temp
 
 
+
+
 test_cases = {
     "1,2,3": 6,
+    "1\n1001\n3": 4,
+    "2,1001": 2,
+    "2\n1001": 2,
     "1\n2\n3": 6,
     "//,\n1,2,3": 6,
     "//;\n1;2;3": 6,
@@ -78,6 +88,8 @@ test_cases = {
     "//*\n9*8*7": 24,
     "//&666&\n1&666&2&666&3": 6,
     "//abc\n10abc20abc30": 60,
+    "//[;[{}]'/.][*]\n1;[{}]'/.2*3" : 6,
+    "//[;[{}]'/.][*]\n1;[{}]'/.2*32" : 35,
 
     # Edge / invalid / tricky cases
     # "1--2--3": "may fail due to negative number parsing",
@@ -91,24 +103,26 @@ test_cases = {
 
 
 def main():
-    # for input_str, expected in test_cases.items():
-    #         result = add(input_str)
-    #         if result != expected:
-    #             print("There is still a problem in the program")
+    for input_str, expected in test_cases.items():
+            result = add(input_str)
+            if result != expected:
+                print("There is still a problem in the program")
+                return
+            
+    print("Success : All test passed")
     
             # result = add("//&666&\n1&666&2&666&3")
-            # result = add("//[;[{}]'/.][*]\n1;[{}]'/.2*3")
-            result = add("//[;[{}]'/.][*]\n1;[{}]'/.2*32")
+            # result = add()
             # result = add(     "//1\n11213")
-            # result = add("1,1002,3")
             # result = add("2,1001")
        
             # just remove the delimiter initially by replacing delimiter with ,
-            print(result)
+            # print(result)
     
 
 
 main()
+
 
 
 
