@@ -102,7 +102,8 @@ test_cases = {
 }
 
 
-def main():
+
+def start_test():
     for input_str, expected in test_cases.items():
             result = add(input_str)
             if result != expected:
@@ -121,7 +122,9 @@ def main():
     
 
 
-main()
+if __name__ == "__main__":
+    start_test()
+
 
 
 
