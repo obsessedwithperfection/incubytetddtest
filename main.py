@@ -10,6 +10,31 @@ def ignore(current , temp):
         temp += num
     return temp
 
+def checkDigitDelimiter(delimiter):
+    
+    isint = False
+    
+    # int(delimiter) raise an error already if it is an int
+    # that is why to keep our program going on we are using try and except block
+    
+    try:
+       int(delimiter) 
+       isint  = True
+    except:
+       isint  = False
+       
+    if (isint):
+        raise ValueError("Delimiter must not be numbers alone.")
+        
+    
+  
+
+def checkForNegative(char):
+    if(char == "-"):
+        # Found a negative number. Therefore stopping the program"
+        raise ValueError("Negative numbers not allowed")
+
+
 
 def preProcessNumbers(numbers):
       # Check for custom delimiter
@@ -24,8 +49,10 @@ def preProcessNumbers(numbers):
         if delimiter.startswith("["):
             delimiters = re.findall(r'\[(.*?)\]', numbers)
             for delim in delimiters:
+                checkDigitDelimiter(delim)
                 numbers = numbers.replace(delim, ",")
         else:
+            checkDigitDelimiter(delimiter)
             numbers = numbers.replace(delimiter, ",")
                 
                 
@@ -36,10 +63,6 @@ def preProcessNumbers(numbers):
     # print(numbers)
     return numbers
     
-def checkForNegative(char):
-    if(char == "-"):
-        # Found a negative number. Therefore stopping the program"
-        raise ValueError("Negative numbers not allowed")
 
 def add(numbers):
     
@@ -124,6 +147,7 @@ def start_test():
 
 if __name__ == "__main__":
     start_test()
+
 
 
 
